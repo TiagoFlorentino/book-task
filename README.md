@@ -37,4 +37,6 @@ and their status
 
 # How to use
 
-- TODO
+- START THE API
+
+poetry run uvicorn main:app --reload
