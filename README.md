@@ -13,7 +13,7 @@ their ID instead of title.
 
 The state of the books can be described by the following states:
 
-- IN-HOUSE - the book is available to be rented in the library
+- AVAILABLE - the book is available to be rented in the library
 - RENTED - the book was rented by some active user of the library
 - DISCONTINUED - the book is no longer available in the library
 
