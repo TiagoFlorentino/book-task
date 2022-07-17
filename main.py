@@ -1,6 +1,12 @@
+from typing import Optional
+
 from databases import Database
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import os
+
+from pydantic import BaseModel
+from starlette import status
+from starlette.requests import Request
 
 app = FastAPI()
 
@@ -27,3 +33,18 @@ async def database_disconnect():
 async def clients():
     clients = await database.fetch_all(query="SELECT * FROM clients")
     return clients
+
+
+@app.post("/add_client/")
+async def add_clients(info: Request):
+    request_info = await info.json()
+    name: Optional[str] = request_info.get("name", None)
+    if name is None:
+        # The server will not process the following request due to the missing field
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+    insert_query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
+    client_to_create = {"name": name, "active": "TRUE"}
+    try:
+        await database.execute(query=insert_query, values=client_to_create)
+    except Exception as _:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
