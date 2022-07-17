@@ -31,7 +31,7 @@ async def test_add_clients(fast_api_test_client):
     ]
     await database.connect()
     for user in test_user_list:
-        fast_api_test_client.post("/add_client/", data=json.dumps(user))
+        fast_api_test_client.post("/add_client", data=json.dumps(user))
 
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
