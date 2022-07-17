@@ -12,9 +12,15 @@ def database_startup():
     db_cursor.execute(
         "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO MANUEL", "TRUE")
     )
+    db_cursor.execute(
+        "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO JOSE", "TRUE")
+    )
     # Add a new book
     db_cursor.execute(
         "INSERT INTO books (title, status) VALUES (?, ?)", ("A Aventura 1", "IN-HOUSE")
+    )
+    db_cursor.execute(
+        "INSERT INTO books (title, status) VALUES (?, ?)", ("A Aventura 2", "IN-HOUSE")
     )
     connection.commit()
     connection.close()

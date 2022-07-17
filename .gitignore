@@ -1,5 +1,6 @@
 *.idea
 *.pytest_cache
 .idea
-book_task/flask_app/__pycache__
-pytest/flask_app/__pycache__/
+book_task/fast_api/__pycache__
+pytest/fast_api/__pycache__/
+*__pycache__*
