@@ -22,8 +22,8 @@ in their possession
 
 ### 3 - Track down the library members.
 
-We will be able to list the member os the library by doing a call to the service on /clients.
-We will list the status of the user - YES/NO active status
+We will be able to list the member of the library by doing a call to the service on /clients.
+We will list the status of the user - ```YES or NO``` active status
 
 ### 4 - Only active user will be able to rent books
 
@@ -37,6 +37,14 @@ and their status
 
 # How to use
 
-- START THE API
+- Generate your local DB
 
-poetry run uvicorn main:app --reload
+```poetry run book_task\database\db_init.py```
+
+- Start the API
+
+```poetry run uvicorn main:app --reload```
+
+- Run testing
+
+```poetry run pytest```
