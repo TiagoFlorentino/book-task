@@ -13,6 +13,7 @@ app = FastAPI()
 current_env = os.environ.get("CURRENT_ENV", "")
 
 if current_env == "test":
+    # Test Case only
     database = Database("sqlite:///test_db.db", force_rollback=True)
 else:
     database = Database("sqlite:///database.db")
@@ -55,33 +56,20 @@ async def search_client(info: Request):
         )
 
 
-@app.post("/activate_client")
-async def activate_client(info: Request):
+@app.post("/client_status")
+async def client_status(info: Request):
     request_info = await info.json()
     id: Optional[int] = request_info.get("id", None)
-    if id is None:
+    client_status: Optional[int] = request_info.get("active", None)
+    if id is None or client_status is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="ID of the client was not provided",
+            detail="ID and status of the client were not provided",
         )
     return await database.execute(
-        query="UPDATE clients SET active = 'TRUE' WHERE id = :id", values={"id": id}
-    )
-
-
-@app.post("/deactivate_client")
-async def deactivate_client(info: Request):
-    request_info = await info.json()
-    id: Optional[int] = request_info.get("id", None)
-    if id is None:
-        # The server will not process the following request due to the missing field
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="ID of the client was not provided",
-        )
-    return await database.execute(
-        query="UPDATE clients SET active = 'FALSE' WHERE id = :id", values={"id": id}
+        query="UPDATE clients SET active = :active WHERE id = :id",
+        values={"id": id, "active": client_status},
     )
 
 
@@ -107,6 +95,27 @@ async def add_client(info: Request):
 @app.get("/list_books")
 async def list_books():
     return await database.fetch_all(query="SELECT * FROM books")
+
+
+@app.get("/search_book")
+async def search_book(info: Request):
+    request_info = await info.json()
+    title: Optional[str] = request_info.get("title", None)
+    id: Optional[int] = request_info.get("id", None)
+    if title is None and id is None:
+        # The server will not process the following request due to the missing field
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Missing name or ID parameters",
+        )
+    if title is not None:
+        return await database.fetch_all(
+            query="SELECT * FROM books WHERE title = :title", values={"title": title}
+        )
+    else:
+        return await database.fetch_all(
+            query="SELECT * FROM books WHERE id = :id", values={"id": id}
+        )
 
 
 @app.post("/rent_book")
@@ -152,7 +161,7 @@ async def book_status(info: Request):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="ID or Updated status of the book were not provided",
         )
-    if status in ["AVAILABLE", "DISCONTINUED"]:
+    if book_status in ["AVAILABLE", "DISCONTINUED"]:
         return await database.execute(
             query="UPDATE books SET status = :status, renter_id = NULL WHERE id = :id",
             values={"id": id, "status": book_status},
