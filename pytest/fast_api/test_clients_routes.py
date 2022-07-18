@@ -1,12 +1,13 @@
 import json
-
 import pytest
-
 from main import database
 
 
 @pytest.mark.asyncio
 async def test_get_clients(fast_api_test_client):
+    """
+    Test list operation to get clients
+    """
     test_user_list = [
         {"name": "ANDRE JOSE", "active": "TRUE"},
         {"name": "RITA MARIA", "active": "TRUE"},
@@ -25,13 +26,16 @@ async def test_get_clients(fast_api_test_client):
 
 @pytest.mark.asyncio
 async def test_add_clients(fast_api_test_client):
+    """
+    Test operation to add clients to the database
+    """
     test_user_list = [
         {"name": "ANDRE JOSE"},
         {"name": "RITA MARIA"},
     ]
     await database.connect()
     for user in test_user_list:
-        fast_api_test_client.post("/add_client/", data=json.dumps(user))
+        fast_api_test_client.post("/add_client", data=json.dumps(user))
 
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
@@ -50,6 +54,13 @@ async def test_add_clients(fast_api_test_client):
 async def test_status_management_client(
     fast_api_test_client, input_status, test_request, output_status
 ):
+    """
+    Test activation or deactivation of the clients
+    :param fast_api_test_client: Test Client
+    :param input_status: input status of the client on the DB
+    :param test_request: endpoint which is used to make the request
+    :param output_status: output status of the client to be update on the DB
+    """
     query = (
         f"INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', '{input_status}')"
     )
@@ -64,6 +75,9 @@ async def test_status_management_client(
 
 @pytest.mark.asyncio
 async def test_client_search(fast_api_test_client):
+    """
+    Test client search by name and ID
+    """
     test_user_list = [
         {"name": "ANDRE JOSE", "active": "TRUE"},
         {"name": "RITA MARIA", "active": "TRUE"},
