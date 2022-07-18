@@ -48,11 +48,11 @@ async def test_add_clients(fast_api_test_client):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "input_status, test_request, output_status",
-    [("FALSE", "/activate_client", "TRUE"), ("TRUE", "/deactivate_client", "FALSE")],
+    "input_status, output_status",
+    [("FALSE", "TRUE"), ("TRUE", "FALSE")],
 )
 async def test_status_management_client(
-    fast_api_test_client, input_status, test_request, output_status
+    fast_api_test_client, input_status, output_status
 ):
     """
     Test activation or deactivation of the clients
@@ -66,7 +66,9 @@ async def test_status_management_client(
     )
     await database.connect()
     await database.execute(query=query)
-    fast_api_test_client.post(test_request, data=json.dumps({"id": 1}))
+    fast_api_test_client.post(
+        "/client_status", data=json.dumps({"id": 1, "active": output_status})
+    )
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
     assert response.json() == [{"id": 1, "name": "ANDRE JOSE", "active": output_status}]

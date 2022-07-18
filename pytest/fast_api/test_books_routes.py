@@ -109,3 +109,28 @@ async def test_book_renting(fast_api_test_client):
         {"id": 1, "title": "SOME BOOK 42", "status": "RENTED", "renter_id": 2},
     ]
     await database.disconnect()
+
+
+@pytest.mark.asyncio
+async def test_book_search(fast_api_test_client):
+    """
+    Test book search
+    """
+    queries = [
+        "INSERT INTO books (title, status) VALUES ('DELIBERATE', 'AVAILABLE')",
+        "INSERT INTO books (title, status) VALUES ('SUBTLETY', 'DISCONTINUED')",
+    ]
+    await database.connect()
+    for query in queries:
+        await database.execute(query=query)
+    search_by_id = fast_api_test_client.get("/search_book", data=json.dumps({"id": 2}))
+    search_by_name = fast_api_test_client.get(
+        "/search_book", data=json.dumps({"title": "SUBTLETY"})
+    )
+    assert search_by_name.status_code == search_by_id.status_code == 200
+    assert (
+        search_by_name.json()
+        == search_by_id.json()
+        == [{"id": 2, "title": "SUBTLETY", "status": "DISCONTINUED", "renter_id": None}]
+    )
+    await database.disconnect()

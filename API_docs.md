@@ -26,29 +26,19 @@ Examples:
     }
     ```
 
-### POST - /activate_client
+### POST - /client_status
 
-Description: Activate a client by ID
+Description: Activate or Deactivate a client by ID
 
 Examples:
 
 ```json
 {
-  "id": 1
+  "id": 1,
+  "active": "TRUE" (or FALSE)
 }
 ```
 
-### POST - /deactivate_client
-
-Description: Deactivate a client by ID
-
-Example:
-
-```json
-{
-  "id": 1
-}
-```
 
 ### POST - /add_client
 
@@ -67,6 +57,26 @@ Example:
 ### GET - /list_books
 
 Description: list all the books in the library
+
+### GET - /search_book
+
+Description: Search a book by title or ID
+
+Examples:
+
+- by ID
+    ```json
+    {
+      "id": 1
+    }
+    ```
+
+- by Name
+    ```json
+    {
+      "title": "BITS BITS"
+    }
+    ```
 
 ### POST - /rent_book
 
