@@ -98,7 +98,7 @@ async def add_client(info: Request):
     insert_query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
     client_to_create = {"name": name, "active": "TRUE"}
     try:
-        await database.execute(query=insert_query, values=client_to_create)
+        return await database.execute(query=insert_query, values=client_to_create)
     except Exception as _:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -145,7 +145,7 @@ async def rent_book(info: Request):
 async def book_status(info: Request):
     request_info = await info.json()
     id: Optional[int] = request_info.get("id", None)
-    status: Optional[int] = request_info.get("status", None)
+    book_status: Optional[int] = request_info.get("status", None)
     if id is None or status is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(
@@ -155,10 +155,9 @@ async def book_status(info: Request):
     if status in ["AVAILABLE", "DISCONTINUED"]:
         return await database.execute(
             query="UPDATE books SET status = :status, renter_id = NULL WHERE id = :id",
-            values={"id": id, "status": status},
+            values={"id": id, "status": book_status},
         )
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot update to the mentioned status",
-        )
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Failed to process request",
+    )
