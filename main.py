@@ -8,6 +8,7 @@ from starlette import status
 from starlette.requests import Request
 
 from book_task.routes.book import search_books, rent_books, change_book_status
+from book_task.routes.campaigns import create_new_campaign
 from book_task.routes.client import client_search, change_client_status, create_client
 
 app = FastAPI()
@@ -84,3 +85,9 @@ async def book_status(info: Request):
 @app.get("/list_campaigns")
 async def list_campaigns():
     return await database.fetch_all(query="SELECT * FROM campaigns")
+
+
+@app.post("/add_campaign")
+async def add_campaign(info: Request):
+    request_info = await info.json()
+    return await create_new_campaign(request_info, database)
