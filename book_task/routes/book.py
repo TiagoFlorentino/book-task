@@ -72,3 +72,35 @@ async def change_book_status(request_info: dict, database: Database):
         status_code=status.HTTP_400_BAD_REQUEST,
         detail="Failed to process request",
     )
+
+
+async def create_client(request_info: dict, database: Database):
+    name: Optional[str] = request_info.get("name", None)
+    if name is None:
+        # The server will not process the following request due to the missing field
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Client Name was not provided",
+        )
+    insert_query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
+    client_to_create = {"name": name, "active": "TRUE"}
+    try:
+        return await database.execute(query=insert_query, values=client_to_create)
+    except Exception as _:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+async def create_book(request_info: dict, database: Database):
+    title: Optional[str] = request_info.get("title", None)
+    if title is None:
+        # The server will not process the following request due to the missing field
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Client Name was not provided",
+        )
+    insert_query = "INSERT INTO books (title, status) VALUES (:title, :status)"
+    book_to_create = {"title": title, "status": "AVAILABLE"}
+    try:
+        return await database.execute(query=insert_query, values=book_to_create)
+    except Exception as _:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

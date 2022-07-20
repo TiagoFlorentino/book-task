@@ -134,3 +134,18 @@ async def test_book_search(fast_api_test_client):
         == [{"id": 2, "title": "SUBTLETY", "status": "DISCONTINUED", "renter_id": None}]
     )
     await database.disconnect()
+
+
+@pytest.mark.asyncio
+async def test_add_books(fast_api_test_client):
+    test_book_list = [{"title": "BOOK_1"}, {"title": "BOOK_2"}]
+    await database.connect()
+    for book in test_book_list:
+        fast_api_test_client.post("/add_book", data=json.dumps(book))
+    response = fast_api_test_client.get("/list_books")
+    assert response.status_code == 200
+    assert response.json() == [
+        {"id": 1, "title": "BOOK_1", "status": "AVAILABLE", "renter_id": None},
+        {"id": 2, "title": "BOOK_2", "status": "AVAILABLE", "renter_id": None},
+    ]
+    await database.disconnect()
