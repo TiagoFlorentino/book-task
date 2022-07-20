@@ -39,7 +39,7 @@ and their status
 
 - Generate your local DB
 
-```poetry run book_task\database\db_init.py```
+```poetry run python book_task\database\db_init.py```
 
 - Start the API
 

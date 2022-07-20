@@ -26,9 +26,29 @@ def database_startup():
         "INSERT INTO books (title, status) VALUES (?, ?)",
         ("A Aventura 3", "DISCONTINUED"),
     )
+    db_cursor.execute(
+        "INSERT INTO campaigns (name, slogan) VALUES (?, ?)",
+        ("SUMMER READING", "READ WITH US"),
+    )
+    db_cursor.execute(
+        "INSERT INTO campaign_log (campaign_id, client_id) VALUES (?, ?)",
+        (1, 1),
+    )
+    connection.commit()
+    connection.close()
+    print("Closing DB Connection - Shutdown!")
+
+
+def database_startup_for_testing():
+    print("Generating testing base DB!")
+    connection = sqlite3.connect("test_db.db")
+    with open("book_task/database/schema.sql") as f:
+        # Read Schema
+        connection.executescript(f.read())
     connection.commit()
     connection.close()
     print("Closing DB Connection - Shutdown!")
 
 
 database_startup()
+database_startup_for_testing()
