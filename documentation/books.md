@@ -13,8 +13,7 @@ Description: Add a book to the library
 
 ```json
 {
-  "book_id": 1,
-  "client_id": 1
+  "title": "The Waking Hours"
 }
 ```
 
