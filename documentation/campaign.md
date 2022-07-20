@@ -9,7 +9,7 @@ Description: list all the campaigns of the library
 
 ### POST - /add_campaign
 
-Description: Rent a book from the library (if available)
+Description: Add a new campaign to the library
 
 ```json
 {
