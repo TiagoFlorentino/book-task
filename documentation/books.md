@@ -7,6 +7,16 @@
 
 Description: list all the books in the library
 
+### POST - /add_book
+
+Description: Add a book to the library
+
+```json
+{
+  "title": "The Waking Hours"
+}
+```
+
 ### GET - /search_book
 
 Description: Search a book by title or ID

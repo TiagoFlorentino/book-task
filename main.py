@@ -1,13 +1,15 @@
-from typing import Optional
-
 from databases import Database
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import os
 
-from starlette import status
 from starlette.requests import Request
 
-from book_task.routes.book import search_books, rent_books, change_book_status
+from book_task.routes.book import (
+    search_books,
+    rent_books,
+    change_book_status,
+    create_book,
+)
 from book_task.routes.campaigns import create_new_campaign
 from book_task.routes.client import client_search, change_client_status, create_client
 
@@ -61,6 +63,12 @@ async def add_client(info: Request):
 @app.get("/list_books")
 async def list_books():
     return await database.fetch_all(query="SELECT * FROM books")
+
+
+@app.post("/add_book")
+async def add_book(info: Request):
+    request_info = await info.json()
+    return await create_book(request_info, database)
 
 
 @app.get("/search_book")
