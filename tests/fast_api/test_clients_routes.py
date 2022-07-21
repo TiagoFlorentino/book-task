@@ -9,8 +9,8 @@ async def test_get_clients(fast_api_test_client):
     Test list operation to get clients
     """
     test_user_list = [
-        {"name": "ANDRE JOSE", "active": "TRUE"},
-        {"name": "RITA MARIA", "active": "TRUE"},
+        {"name": "ANDRE JOSE", "active": 1},
+        {"name": "RITA MARIA", "active": 1},
     ]
     query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
     await database.connect()
@@ -27,8 +27,8 @@ async def test_get_clients(fast_api_test_client):
             }
         )
     assert actual_value == [
-        {"id": 1, "name": "ANDRE JOSE", "active": "TRUE"},
-        {"id": 2, "name": "RITA MARIA", "active": "TRUE"},
+        {"id": 1, "name": "ANDRE JOSE", "active": 1},
+        {"id": 2, "name": "RITA MARIA", "active": 1},
     ]
     await database.disconnect()
 
@@ -58,19 +58,19 @@ async def test_add_clients(fast_api_test_client):
             }
         )
     assert actual_value == [
-        {"id": 1, "name": "ANDRE JOSE", "active": "TRUE"},
-        {"id": 2, "name": "RITA MARIA", "active": "TRUE"},
+        {"id": 1, "name": "ANDRE JOSE", "active": 1},
+        {"id": 2, "name": "RITA MARIA", "active": 1},
     ]
     await database.disconnect()
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "input_status, output_status",
-    [("FALSE", "TRUE"), ("TRUE", "FALSE")],
+    "request_parameter, input_status, output_status",
+    [(True, 0, 1), (False, 1, 0)],
 )
 async def test_status_management_client(
-    fast_api_test_client, input_status, output_status
+    fast_api_test_client, request_parameter, input_status, output_status
 ):
     """
     Test activation or deactivation of the clients
@@ -79,9 +79,7 @@ async def test_status_management_client(
     :param test_request: endpoint which is used to make the request
     :param output_status: output status of the client to be update on the DB
     """
-    query = (
-        f"INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', '{input_status}')"
-    )
+    query = f"INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', '{request_parameter}')"
     await database.connect()
     await database.execute(query=query)
     fast_api_test_client.post(
@@ -108,8 +106,8 @@ async def test_client_search(fast_api_test_client):
     Test client search by name and ID
     """
     test_user_list = [
-        {"name": "ANDRE JOSE", "active": "TRUE"},
-        {"name": "RITA MARIA", "active": "TRUE"},
+        {"name": "ANDRE JOSE", "active": 1},
+        {"name": "RITA MARIA", "active": 1},
     ]
     query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
     await database.connect()
@@ -138,6 +136,6 @@ async def test_client_search(fast_api_test_client):
                 "active": by_id.get("active"),
             }
         ]
-        == [{"id": 2, "name": "RITA MARIA", "active": "TRUE"}]
+        == [{"id": 2, "name": "RITA MARIA", "active": 1}]
     )
     await database.disconnect()

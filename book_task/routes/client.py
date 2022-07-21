@@ -33,9 +33,11 @@ async def change_client_status(request_info: dict, database: Database):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="ID and status of the client were not provided",
         )
+    # False = 0 // True = 1
+    update_status = 1 if client_status else 0
     return await database.execute(
         query="UPDATE clients SET active = :active WHERE id = :id",
-        values={"id": id, "active": client_status},
+        values={"id": id, "active": update_status},
     )
 
 
@@ -48,7 +50,7 @@ async def create_client(request_info: dict, database: Database):
             detail="Client Name was not provided",
         )
     insert_query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
-    client_to_create = {"name": name, "active": "TRUE"}
+    client_to_create = {"name": name, "active": 1}
     try:
         return await database.execute(query=insert_query, values=client_to_create)
     except Exception as _:

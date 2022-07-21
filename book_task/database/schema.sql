@@ -7,7 +7,7 @@ CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     name TEXT NOT NULL,
-    active TEXT NOT NULL
+    active INTEGER
 );
 
 CREATE TABLE books (
@@ -25,6 +25,7 @@ CREATE TABLE campaigns (
 
 CREATE TABLE campaign_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    new_client INTEGER,
     campaign_id REFERENCES campaigns(id),
     client_id REFERENCES clients(id)
 );

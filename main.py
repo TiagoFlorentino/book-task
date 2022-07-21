@@ -99,3 +99,9 @@ async def list_campaigns():
 async def add_campaign(info: Request):
     request_info = await info.json()
     return await create_new_campaign(request_info, database)
+
+
+@app.post("/join_campaign")
+async def join_campaign(info: Request):
+    request_info = await info.json()
+    return await join_new_campaign(request_info, database)

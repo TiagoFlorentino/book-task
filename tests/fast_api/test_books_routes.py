@@ -56,7 +56,7 @@ async def test_client_booking_failure(fast_api_test_client):
     """
     Test failure to rent a book given the client is not active
     """
-    query = "INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 'FALSE')"
+    query = "INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 0)"
     await database.connect()
     await database.execute(query=query)
     response = fast_api_test_client.post(
@@ -72,7 +72,7 @@ async def test_book_booking_failure(fast_api_test_client):
     Test failure to rent a book given the book is not available
     """
     queries = [
-        ("INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 'TRUE')"),
+        ("INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 1)"),
         "INSERT INTO books (title, status) VALUES ('SOME BOOK 42', 'RENTED')",
     ]
     await database.connect()
@@ -93,8 +93,8 @@ async def test_book_renting(fast_api_test_client):
     and the renter id is added
     """
     queries = [
-        "INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 'TRUE')",
-        "INSERT INTO clients (name, active) VALUES ('MANUEL RODRIGO', 'TRUE')",
+        "INSERT INTO clients (name, active) VALUES ('ANDRE JOSE', 1)",
+        "INSERT INTO clients (name, active) VALUES ('MANUEL RODRIGO', 1)",
         "INSERT INTO books (title, status) VALUES ('SOME BOOK 42', 'AVAILABLE')",
     ]
     await database.connect()

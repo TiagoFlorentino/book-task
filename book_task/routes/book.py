@@ -30,9 +30,8 @@ async def rent_books(request_info: dict, database: Database):
     if book_id is None or client_id is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
-
     renter_client = await database.fetch_one(
-        query=f"SELECT * FROM clients WHERE (id = {client_id} AND active = 'TRUE')"
+        query=f"SELECT * FROM clients WHERE (id = {client_id} AND active = 1)"
     )
     if renter_client is None:
         raise HTTPException(
