@@ -35,7 +35,7 @@ Examples:
 ```json
 {
   "id": 1,
-  "active": "TRUE" (or FALSE)
+  "active": true // or false
 }
 ```
 

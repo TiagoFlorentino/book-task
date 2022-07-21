@@ -30,19 +30,18 @@ async def rent_books(request_info: dict, database: Database):
     if book_id is None or client_id is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
-
     renter_client = await database.fetch_one(
-        query=f"SELECT * FROM clients WHERE id = {client_id}"
+        query=f"SELECT * FROM clients WHERE (id = {client_id} AND active = 1)"
     )
-    if renter_client.active != "TRUE":
+    if renter_client is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Renter Client is not active",
         )
-    book_to_rend = await database.fetch_one(
-        query=f"SELECT * FROM books WHERE id = {book_id}"
+    book_to_rent = await database.fetch_one(
+        query=f"SELECT * FROM books WHERE (id = {book_id} AND status = 'AVAILABLE')"
     )
-    if book_to_rend.status != "AVAILABLE":
+    if book_to_rent is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Book not available to be rented",
@@ -69,8 +68,8 @@ async def change_book_status(request_info: dict, database: Database):
             values={"id": id, "status": book_status},
         )
     raise HTTPException(
-        status_code=status.HTTP_400_BAD_REQUEST,
-        detail="Failed to process request",
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        detail="Failed to process request!",
     )
 
 
@@ -87,4 +86,7 @@ async def create_book(request_info: dict, database: Database):
     try:
         return await database.execute(query=insert_query, values=book_to_create)
     except Exception as _:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to store the new book!",
+        )

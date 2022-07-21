@@ -2,5 +2,5 @@
 *.pytest_cache
 .idea
 book_task/fast_api/__pycache__
-pytest/fast_api/__pycache__/
+tests/fast_api/__pycache__/
 *__pycache__*
