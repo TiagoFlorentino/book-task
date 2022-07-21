@@ -52,7 +52,7 @@ async def join_new_campaign(request_info: dict, database: Database):
     created_date = datetime.strptime(client.created, "%Y-%m-%d %H:%M:%f")
     less_than_hour = created_date < datetime.today() - timedelta(hours=1)
     new_client = 1 if less_than_hour else 0
-    insert_query = "INSERT INTO campaign_logs (new_client, client_id, campaign_id) VALUES (:new_client, :client_id, :campaign_id)"
+    insert_query = "INSERT INTO campaign_log (new_client, client_id, campaign_id) VALUES (:new_client, :client_id, :campaign_id)"
     log_to_create = {
         "new_client": new_client,
         "client_id": client_id,

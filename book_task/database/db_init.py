@@ -31,8 +31,8 @@ def database_startup():
         ("SUMMER READING", "READ WITH US"),
     )
     db_cursor.execute(
-        "INSERT INTO campaign_log (campaign_id, client_id) VALUES (?, ?)",
-        (1, 1),
+        "INSERT INTO campaign_log (campaign_id, client_id, new_client) VALUES (?, ?, ?)",
+        (1, 1, 1),
     )
     connection.commit()
     connection.close()
