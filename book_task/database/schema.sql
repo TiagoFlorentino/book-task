@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS clients;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS campaigns;
 DROP TABLE IF EXISTS campaign_log;
+DROP TABLE IF EXISTS renting_log;
 
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,6 +16,13 @@ CREATE TABLE books (
     title TEXT NOT NULL,
     status TEXT NOT NULL,
     renter_id REFERENCES clients(id)
+);
+
+CREATE TABLE renting_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id REFERENCES books(id),
+    client_id REFERENCES clients(id),
+    rented_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE campaigns (

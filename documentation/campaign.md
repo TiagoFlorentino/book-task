@@ -17,3 +17,14 @@ Description: Add a new campaign to the library
   "slogan": "Reading, Good!"
 }
 ```
+
+### POST - /join_campaign
+
+Description: A client can join a campaign
+
+```json
+{
+  "client_id": 1,
+  "campaign_id": 1
+}
+```
