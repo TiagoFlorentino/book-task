@@ -110,7 +110,14 @@ async def test_book_renting(fast_api_test_client):
     ]
     renting_logs = fast_api_test_client.get("/list_renting_logs")
     assert renting_logs.status_code == 200
-    assert renting_logs.json() == [{"id": 1, "book_id": 1, "client_id": 2}]
+    first_renting_log = renting_logs.json()[0]
+    assert [
+        {
+            "id": first_renting_log.get("id"),
+            "book_id": first_renting_log.get("book_id"),
+            "client_id": first_renting_log.get("client_id"),
+        }
+    ] == [{"id": 1, "book_id": 1, "client_id": 2}]
     await database.disconnect()
 
 

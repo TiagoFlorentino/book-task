@@ -21,7 +21,8 @@ CREATE TABLE books (
 CREATE TABLE renting_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     book_id REFERENCES books(id),
-    client_id REFERENCES clients(id)
+    client_id REFERENCES clients(id),
+    rented_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE campaigns (
