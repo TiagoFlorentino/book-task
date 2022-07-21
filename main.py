@@ -10,7 +10,7 @@ from book_task.routes.book import (
     change_book_status,
     create_book,
 )
-from book_task.routes.campaigns import create_new_campaign
+from book_task.routes.campaigns import create_new_campaign, join_new_campaign
 from book_task.routes.client import client_search, change_client_status, create_client
 
 app = FastAPI()
@@ -105,3 +105,9 @@ async def add_campaign(info: Request):
 async def join_campaign(info: Request):
     request_info = await info.json()
     return await join_new_campaign(request_info, database)
+
+
+# CAMPAIGN LOGS OPERATIONS!
+@app.get("/list_campaign_logs")
+async def list_campaign_logs():
+    return await database.fetch_all(query="SELECT * FROM campaign_log")

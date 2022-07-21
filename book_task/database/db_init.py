@@ -10,10 +10,10 @@ def database_startup():
     db_cursor = connection.cursor()
     # Add a new client
     db_cursor.execute(
-        "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO MANUEL", "TRUE")
+        "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO MANUEL", 1)
     )
     db_cursor.execute(
-        "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO JOSE", "FALSE")
+        "INSERT INTO clients (name, active) VALUES (?, ?)", ("JOAO JOSE", 0)
     )
     # Add a new book
     db_cursor.execute(
