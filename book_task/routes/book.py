@@ -47,9 +47,14 @@ async def rent_books(request_info: dict, database: Database):
             detail="Book not available to be rented",
         )
 
+    query_variable = {"client_id": client_id, "book_id": book_id}
+    await database.execute(
+        query="INSERT INTO renting_log (book_id, client_id) VALUES (:book_id, :client_id)",
+        values=query_variable,
+    )
     return await database.execute(
         query="UPDATE books SET status = 'RENTED', renter_id = :client_id WHERE id = :book_id",
-        values={"client_id": client_id, "book_id": book_id},
+        values=query_variable,
     )
 
 

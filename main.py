@@ -89,6 +89,11 @@ async def book_status(info: Request):
     return await change_book_status(request_info, database)
 
 
+@app.get("/list_renting_logs")
+async def list_renting_logs():
+    return await database.fetch_all(query="SELECT * FROM renting_log")
+
+
 # CAMPAIGN OPERATIONS!
 @app.get("/list_campaigns")
 async def list_campaigns():
