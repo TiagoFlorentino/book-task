@@ -17,4 +17,7 @@ async def create_new_campaign(request_info: dict, database: Database):
     try:
         return await database.execute(query=insert_query, values=campaign_to_add)
     except Exception as _:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create a new campaign!",
+        )
