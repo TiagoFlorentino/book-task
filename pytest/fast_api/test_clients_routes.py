@@ -17,7 +17,16 @@ async def test_get_clients(fast_api_test_client):
     await database.execute_many(query=query, values=test_user_list)
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
-    assert response.json() == [
+    actual_value = []
+    for client in response.json():
+        actual_value.append(
+            {
+                "id": client.get("id"),
+                "name": client.get("name"),
+                "active": client.get("active"),
+            }
+        )
+    assert actual_value == [
         {"id": 1, "name": "ANDRE JOSE", "active": "TRUE"},
         {"id": 2, "name": "RITA MARIA", "active": "TRUE"},
     ]
@@ -39,7 +48,16 @@ async def test_add_clients(fast_api_test_client):
 
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
-    assert response.json() == [
+    actual_value = []
+    for client in response.json():
+        actual_value.append(
+            {
+                "id": client.get("id"),
+                "name": client.get("name"),
+                "active": client.get("active"),
+            }
+        )
+    assert actual_value == [
         {"id": 1, "name": "ANDRE JOSE", "active": "TRUE"},
         {"id": 2, "name": "RITA MARIA", "active": "TRUE"},
     ]
@@ -71,7 +89,16 @@ async def test_status_management_client(
     )
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
-    assert response.json() == [{"id": 1, "name": "ANDRE JOSE", "active": output_status}]
+    actual_value = []
+    for client in response.json():
+        actual_value.append(
+            {
+                "id": client.get("id"),
+                "name": client.get("name"),
+                "active": client.get("active"),
+            }
+        )
+    assert actual_value == [{"id": 1, "name": "ANDRE JOSE", "active": output_status}]
     await database.disconnect()
 
 
@@ -94,9 +121,23 @@ async def test_client_search(fast_api_test_client):
         "/search_client", data=json.dumps({"name": "RITA MARIA"})
     )
     assert response_by_name.status_code == response_by_id.status_code == 200
+    by_name = response_by_name.json()[0]
+    by_id = response_by_id.json()[0]
     assert (
-        response_by_name.json()
-        == response_by_id.json()
+        [
+            {
+                "id": by_name.get("id"),
+                "name": by_name.get("name"),
+                "active": by_name.get("active"),
+            }
+        ]
+        == [
+            {
+                "id": by_id.get("id"),
+                "name": by_id.get("name"),
+                "active": by_id.get("active"),
+            }
+        ]
         == [{"id": 2, "name": "RITA MARIA", "active": "TRUE"}]
     )
     await database.disconnect()
