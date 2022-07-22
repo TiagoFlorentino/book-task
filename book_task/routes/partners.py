@@ -1,3 +1,4 @@
+from time import sleep
 from typing import Optional
 
 from databases import Database
@@ -7,7 +8,7 @@ from starlette import status
 
 async def change_partner_status(request_info: dict, database: Database):
     id: Optional[int] = request_info.get("id", None)
-    active: Optional[int] = request_info.get("active", None)
+    active: Optional[bool] = request_info.get("active", None)
     if id is None or active is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(
@@ -40,14 +41,14 @@ async def add_new_partner(request_info: dict, database: Database):
     insert_query = (
         "INSERT INTO partners (name, email, active) VALUES (:name, :email, 1)"
     )
-    client_to_create = {"name": name, "active": 1}
+    partner_to_create = {"name": name, "email": email}
     try:
-        await database.execute(query=insert_query, values=client_to_create)
+        await database.execute(query=insert_query, values=partner_to_create)
     except Exception as _:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     partner = await database.fetch_one(
-        query=f"SELECT * FROM partners WHERE (email = {email} AND active = 1)"
+        query=f"SELECT * FROM partners WHERE email = '{email}'"
     )
     insert_query = "INSERT INTO partner_log (partner_id, active) VALUES (:id, :active)"
     log_to_create = {"id": partner.id, "active": 1}
