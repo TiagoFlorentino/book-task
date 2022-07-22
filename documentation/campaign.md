@@ -14,7 +14,8 @@ Description: Add a new campaign to the library
 ```json
 {
   "name": "Campaign A",
-  "slogan": "Reading, Good!"
+  "slogan": "Reading, Good!",
+  "partner_id": 1
 }
 ```
 

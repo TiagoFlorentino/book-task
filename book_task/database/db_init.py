@@ -27,8 +27,16 @@ def database_startup():
         ("A Aventura 3", "DISCONTINUED"),
     )
     db_cursor.execute(
-        "INSERT INTO campaigns (name, slogan) VALUES (?, ?)",
-        ("SUMMER READING", "READ WITH US"),
+        "INSERT INTO partners (name, email, active) VALUES (?, ?, ?)",
+        ("Mahna Mahna", "mahna_mahna@abc.com", 1),
+    )
+    db_cursor.execute(
+        "INSERT INTO partner_log (partner_id, active) VALUES (?, ?)",
+        (1, 1),
+    )
+    db_cursor.execute(
+        "INSERT INTO campaigns (name, slogan, partner_id) VALUES (?, ?, ?)",
+        ("SUMMER READING", "READ WITH US", 1),
     )
     db_cursor.execute(
         "INSERT INTO campaign_log (campaign_id, client_id, new_client) VALUES (?, ?, ?)",

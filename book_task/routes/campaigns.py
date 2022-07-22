@@ -9,12 +9,13 @@ from starlette import status
 async def create_new_campaign(request_info: dict, database: Database):
     name: Optional[str] = request_info.get("name", None)
     slogan: Optional[str] = request_info.get("slogan", None)
-    if name is None or slogan is None:
+    partner_id: Optional[str] = request_info.get("partner_id", None)
+    if name is None or slogan is None or partner_id is None:
         # The server will not process the following request due to the missing field
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-    insert_query = "INSERT INTO campaigns (name, slogan) VALUES (:name, :slogan)"
-    campaign_to_add = {"name": name, "slogan": slogan}
+    insert_query = "INSERT INTO campaigns (name, slogan, partner_id) VALUES (:name, :slogan, :partner_id)"
+    campaign_to_add = {"name": name, "slogan": slogan, "partner_id": partner_id}
     try:
         return await database.execute(query=insert_query, values=campaign_to_add)
     except Exception as _:

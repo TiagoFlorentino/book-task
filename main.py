@@ -94,6 +94,29 @@ async def list_renting_logs():
     return await database.fetch_all(query="SELECT * FROM renting_log")
 
 
+# PARTNER OPERATIONS!
+@app.get("/list_partners")
+async def list_partner_logs():
+    return await database.fetch_all(query="SELECT * FROM partners")
+
+
+@app.post("/add_partner")
+async def add_partner(info: Request):
+    request_info = await info.json()
+    return await change_book_status(request_info, database)
+
+
+@app.post("/partner_status")
+async def partner_status(info: Request):
+    request_info = await info.json()
+    return await change_book_status(request_info, database)
+
+
+@app.get("/list_partner_logs")
+async def list_partner_logs():
+    return await database.fetch_all(query="SELECT * FROM partner_log")
+
+
 # CAMPAIGN OPERATIONS!
 @app.get("/list_campaigns")
 async def list_campaigns():
