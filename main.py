@@ -12,6 +12,7 @@ from book_task.routes.book import (
 )
 from book_task.routes.campaigns import create_new_campaign, join_new_campaign
 from book_task.routes.client import client_search, change_client_status, create_client
+from book_task.routes.partners import add_new_partner, change_partner_status
 
 app = FastAPI()
 
@@ -92,6 +93,29 @@ async def book_status(info: Request):
 @app.get("/list_renting_logs")
 async def list_renting_logs():
     return await database.fetch_all(query="SELECT * FROM renting_log")
+
+
+# PARTNER OPERATIONS!
+@app.get("/list_partners")
+async def list_partner_logs():
+    return await database.fetch_all(query="SELECT * FROM partners")
+
+
+@app.post("/add_partner")
+async def add_partner(info: Request):
+    request_info = await info.json()
+    return await add_new_partner(request_info, database)
+
+
+@app.post("/partner_status")
+async def partner_status(info: Request):
+    request_info = await info.json()
+    return await change_partner_status(request_info, database)
+
+
+@app.get("/list_partner_logs")
+async def list_partner_logs():
+    return await database.fetch_all(query="SELECT * FROM partner_log")
 
 
 # CAMPAIGN OPERATIONS!
