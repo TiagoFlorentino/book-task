@@ -29,3 +29,9 @@ Description: A client can join a campaign
   "campaign_id": 1
 }
 ```
+
+## Campaign Logs Operations
+
+### GET - /list_campaign_logs
+
+Description: list all the campaign logs of the library

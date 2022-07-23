@@ -56,12 +56,12 @@ to rented using this operation
 All Status: 
 - 
 - AVAILABLE - the book is available to be rented in the library
-- RENTED - the book was rented by some active user of the library
+- RENTED - the book was rented by some active user of the library. Status not available in this operation
 - DISCONTINUED - the book is no longer available in the library
 
 ```json
 {
   "id": 1,
-  "status": 1
+  "status": "AVAILABLE" // or "DISCONTINUED"
 }
 ```

@@ -7,12 +7,18 @@ from starlette import status
 
 
 async def create_new_campaign(request_info: dict, database: Database):
+    """
+    Create a new campaign which requires a name, slogan and a partner ID to be created
+    """
     name: Optional[str] = request_info.get("name", None)
     slogan: Optional[str] = request_info.get("slogan", None)
     partner_id: Optional[str] = request_info.get("partner_id", None)
     if name is None or slogan is None or partner_id is None:
         # The server will not process the following request due to the missing field
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Missing required parameters",
+        )
 
     insert_query = "INSERT INTO campaigns (name, slogan, partner_id) VALUES (:name, :slogan, :partner_id)"
     campaign_to_add = {"name": name, "slogan": slogan, "partner_id": partner_id}
@@ -26,6 +32,10 @@ async def create_new_campaign(request_info: dict, database: Database):
 
 
 async def join_new_campaign(request_info: dict, database: Database):
+    """
+    A client can join a new campaign
+    If the client was created within an hour - it's considered a new client
+    """
     campaign_id: Optional[str] = request_info.get("campaign_id", None)
     client_id: Optional[str] = request_info.get("client_id", None)
     if client_id is None or campaign_id is None:
