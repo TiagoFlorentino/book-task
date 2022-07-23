@@ -50,3 +50,19 @@ def input_book_renting_queries():
         "INSERT INTO clients (name, active) VALUES ('MANUEL RODRIGO', 1)",
         "INSERT INTO books (title, status) VALUES ('SOME BOOK 42', 'AVAILABLE')",
     ]
+
+
+@pytest.fixture
+def input_get_campaign_list():
+    return [
+        {"name": "CAMPAIGN_1", "slogan": "SLOGAN_A", "partner_id": 1},
+        {"name": "CAMPAIGN_2", "slogan": "SLOGAN_B", "partner_id": 1},
+    ]
+
+
+@pytest.fixture
+def output_get_campaign_list():
+    return [
+        {"id": 1, "name": "CAMPAIGN_1", "slogan": "SLOGAN_A", "partner_id": 1},
+        {"id": 2, "name": "CAMPAIGN_2", "slogan": "SLOGAN_B", "partner_id": 1},
+    ]
