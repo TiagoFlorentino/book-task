@@ -7,6 +7,9 @@ from starlette import status
 
 
 async def change_partner_status(request_info: dict, database: Database):
+    """
+    Change partner status//active or not - status is bool but stored as an int in the DB
+    """
     id: Optional[int] = request_info.get("id", None)
     active: Optional[bool] = request_info.get("active", None)
     if id is None or active is None:
@@ -30,6 +33,9 @@ async def change_partner_status(request_info: dict, database: Database):
 
 
 async def add_new_partner(request_info: dict, database: Database):
+    """
+    Add a new partner which provides name and email
+    """
     name: Optional[str] = request_info.get("name", None)
     email: Optional[str] = request_info.get("email", None)
     if name is None or email is None:

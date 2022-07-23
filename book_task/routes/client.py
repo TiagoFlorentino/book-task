@@ -6,6 +6,9 @@ from starlette import status
 
 
 async def client_search(request_info: dict, database: Database):
+    """
+    Search client by ID or Name
+    """
     name: Optional[str] = request_info.get("name", None)
     id: Optional[int] = request_info.get("id", None)
     if name is None and id is None:
@@ -25,6 +28,9 @@ async def client_search(request_info: dict, database: Database):
 
 
 async def change_client_status(request_info: dict, database: Database):
+    """
+    Change client status - Active is a bool but stored as an int with the DB
+    """
     id: Optional[int] = request_info.get("id", None)
     client_status: Optional[int] = request_info.get("active", None)
     if id is None or client_status is None:
@@ -42,6 +48,9 @@ async def change_client_status(request_info: dict, database: Database):
 
 
 async def create_client(request_info: dict, database: Database):
+    """
+    Create a new client to the library
+    """
     name: Optional[str] = request_info.get("name", None)
     if name is None:
         # The server will not process the following request due to the missing field
