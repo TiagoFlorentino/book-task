@@ -4,17 +4,15 @@ from main import database
 
 
 @pytest.mark.asyncio
-async def test_get_clients(fast_api_test_client):
+async def test_get_clients(
+    fast_api_test_client, input_get_clients_list, output_get_clients_list
+):
     """
     Test list operation to get clients
     """
-    test_user_list = [
-        {"name": "ANDRE JOSE", "active": 1},
-        {"name": "RITA MARIA", "active": 1},
-    ]
     query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
     await database.connect()
-    await database.execute_many(query=query, values=test_user_list)
+    await database.execute_many(query=query, values=input_get_clients_list)
     response = fast_api_test_client.get("/list_clients")
     assert response.status_code == 200
     actual_value = []
@@ -26,15 +24,12 @@ async def test_get_clients(fast_api_test_client):
                 "active": client.get("active"),
             }
         )
-    assert actual_value == [
-        {"id": 1, "name": "ANDRE JOSE", "active": 1},
-        {"id": 2, "name": "RITA MARIA", "active": 1},
-    ]
+    assert actual_value == output_get_clients_list
     await database.disconnect()
 
 
 @pytest.mark.asyncio
-async def test_add_clients(fast_api_test_client):
+async def test_add_clients(fast_api_test_client, output_get_clients_list):
     """
     Test operation to add clients to the database
     """
@@ -57,10 +52,7 @@ async def test_add_clients(fast_api_test_client):
                 "active": client.get("active"),
             }
         )
-    assert actual_value == [
-        {"id": 1, "name": "ANDRE JOSE", "active": 1},
-        {"id": 2, "name": "RITA MARIA", "active": 1},
-    ]
+    assert actual_value == output_get_clients_list
     await database.disconnect()
 
 
@@ -101,17 +93,13 @@ async def test_status_management_client(
 
 
 @pytest.mark.asyncio
-async def test_client_search(fast_api_test_client):
+async def test_client_search(fast_api_test_client, input_get_clients_list):
     """
     Test client search by name and ID
     """
-    test_user_list = [
-        {"name": "ANDRE JOSE", "active": 1},
-        {"name": "RITA MARIA", "active": 1},
-    ]
     query = "INSERT INTO clients (name, active) VALUES (:name, :active)"
     await database.connect()
-    await database.execute_many(query=query, values=test_user_list)
+    await database.execute_many(query=query, values=input_get_clients_list)
     response_by_id = fast_api_test_client.get(
         "/search_client", data=json.dumps({"id": 2})
     )

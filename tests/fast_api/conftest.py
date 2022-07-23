@@ -66,3 +66,44 @@ def output_get_campaign_list():
         {"id": 1, "name": "CAMPAIGN_1", "slogan": "SLOGAN_A", "partner_id": 1},
         {"id": 2, "name": "CAMPAIGN_2", "slogan": "SLOGAN_B", "partner_id": 1},
     ]
+
+
+@pytest.fixture
+def input_get_clients_list():
+    return [
+        {"name": "ANDRE JOSE", "active": 1},
+        {"name": "RITA MARIA", "active": 1},
+    ]
+
+
+@pytest.fixture
+def output_get_clients_list():
+    return [
+        {"id": 1, "name": "ANDRE JOSE", "active": 1},
+        {"id": 2, "name": "RITA MARIA", "active": 1},
+    ]
+
+
+@pytest.fixture
+def input_get_partner_list():
+    return [
+        {"name": "Mahna Mahna", "email": "mahna_mahna@xyz.com", "active": 1},
+        {"name": "Bippadotta", "email": "bippadotta@xyz.com", "active": 1},
+    ]
+
+
+@pytest.fixture
+def output_get_partner_list():
+    return [
+        {"id": 1, "name": "Mahna Mahna", "email": "mahna_mahna@xyz.com", "active": 1},
+        {"id": 2, "name": "Bippadotta", "email": "bippadotta@xyz.com", "active": 1},
+    ]
+
+
+@pytest.fixture
+def output_get_partner_log_list():
+    return [
+        {"id": 1, "partner_id": 1, "active": 1},
+        {"id": 2, "partner_id": 2, "active": 1},
+        {"id": 3, "partner_id": 1, "active": 0},
+    ]

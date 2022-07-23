@@ -5,17 +5,15 @@ from main import database
 
 
 @pytest.mark.asyncio
-async def test_get_partners(fast_api_test_client):
+async def test_get_partners(
+    fast_api_test_client, input_get_partner_list, output_get_partner_list
+):
     """
     Test list operation to get partners
     """
-    test_partern_list = [
-        {"name": "Mahna Mahna", "email": "mahna_mahna@xyz.com", "active": 1},
-        {"name": "Bippadotta", "email": "bippadotta@xyz.com", "active": 1},
-    ]
     query = "INSERT INTO partners (name, email, active) VALUES (:name, :email, :active)"
     await database.connect()
-    await database.execute_many(query=query, values=test_partern_list)
+    await database.execute_many(query=query, values=input_get_partner_list)
     response = fast_api_test_client.get("/list_partners")
     assert response.status_code == 200
     actual_value = []
@@ -28,24 +26,22 @@ async def test_get_partners(fast_api_test_client):
                 "active": partner.get("active"),
             }
         )
-    assert actual_value == [
-        {"id": 1, "name": "Mahna Mahna", "email": "mahna_mahna@xyz.com", "active": 1},
-        {"id": 2, "name": "Bippadotta", "email": "bippadotta@xyz.com", "active": 1},
-    ]
+    assert actual_value == output_get_partner_list
     await database.disconnect()
 
 
 @pytest.mark.asyncio
-async def test_add_and_status_partner(fast_api_test_client):
+async def test_add_and_status_partner(
+    fast_api_test_client,
+    input_get_partner_list,
+    output_get_partner_list,
+    output_get_partner_log_list,
+):
     """
     Test operation to add and status changes to partners to the database
     """
-    test_partern_list = [
-        {"name": "Mahna Mahna", "email": "mahna_mahna.xyz.com"},
-        {"name": "Bippadotta", "email": "bippadotta.xyz.com"},
-    ]
     await database.connect()
-    for partner in test_partern_list:
+    for partner in input_get_partner_list:
         fast_api_test_client.post("/add_partner", data=json.dumps(partner))
     response = fast_api_test_client.get("/list_partners")
     assert response.status_code == 200
@@ -59,10 +55,7 @@ async def test_add_and_status_partner(fast_api_test_client):
                 "active": partner.get("active"),
             }
         )
-    assert actual_value == [
-        {"id": 1, "name": "Mahna Mahna", "email": "mahna_mahna.xyz.com", "active": 1},
-        {"id": 2, "name": "Bippadotta", "email": "bippadotta.xyz.com", "active": 1},
-    ]
+    assert actual_value == output_get_partner_list
 
     fast_api_test_client.post(
         "/partner_status", data=json.dumps({"id": 1, "active": False})
@@ -77,9 +70,5 @@ async def test_add_and_status_partner(fast_api_test_client):
                 "active": log_local.get("active"),
             }
         )
-    assert log_value == [
-        {"id": 1, "partner_id": 1, "active": 1},
-        {"id": 2, "partner_id": 2, "active": 1},
-        {"id": 3, "partner_id": 1, "active": 0},
-    ]
+    assert log_value == output_get_partner_log_list
     await database.disconnect()
