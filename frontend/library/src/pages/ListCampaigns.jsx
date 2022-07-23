@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-class ListClients extends React.Component {
+class ListCampaigns extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,7 @@ class ListClients extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://127.0.0.1:8000/list_clients")
+        fetch("http://127.0.0.1:8000/list_campaigns")
             .then((res) => res.json())
             .then((json) => {
                 this.setState({
@@ -27,13 +27,13 @@ class ListClients extends React.Component {
             <h1> Please wait some time.... </h1> </div> ;
 
         return (
-        <div className = "ListClients">
-            <h1> Listing all clients </h1>  {
+        <div className = "ListCampaigns">
+            <h1> Listing all Campaigns </h1>  {
                 items.map((item) => (
                 <ol key = { item.id } >
-                    CLIENT_STATUS: { item.name },
-                    CLIENT_CREATE: { item.created },
-                    CLIENT_ACTIVE_STATUS: { ((item.active == 1) ? 'Active' : 'Not Active')}
+                    CAMPAIGN_NAME: { item.name },
+                    CAMPAIGN_SLOGAN: { item.slogan },
+                    PARTNER_ID: { item.id }
                     </ol>
                 ))
             }
@@ -42,4 +42,4 @@ class ListClients extends React.Component {
 }
 }
 
-export default ListClients;
+export default ListCampaigns;

@@ -2,7 +2,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ListBooks from "./pages/ListBooks";
 import ListClients from "./pages/ListClients";
-
+import ListCampaigns from "./pages/ListCampaigns";
+import ListPartners from "./pages/ListPartners";
 
 
 export default function App() {
@@ -12,6 +13,8 @@ export default function App() {
         <Route path="/">
             <Route path="list_books" element={<ListBooks />} />
             <Route path="list_clients" element={<ListClients />}/>
+            <Route path="list_campaigns" element={<ListCampaigns />}/>
+            <Route path="list_partners" element={<ListPartners />}/>
         </Route>
       </Routes>
     </BrowserRouter>
