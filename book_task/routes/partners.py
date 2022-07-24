@@ -25,7 +25,7 @@ async def change_partner_status(request_info: dict, database: Database):
         values={"id": id, "active": update_status},
     )
     insert_query = "INSERT INTO partner_log (partner_id, active) VALUES (:id, :active)"
-    log_to_create = {"id": id, "active": update_status}
+    log_to_create = {"id": int(id), "active": update_status}
     try:
         return await database.execute(query=insert_query, values=log_to_create)
     except Exception as _:
@@ -57,7 +57,7 @@ async def add_new_partner(request_info: dict, database: Database):
         query=f"SELECT * FROM partners WHERE email = '{email}'"
     )
     insert_query = "INSERT INTO partner_log (partner_id, active) VALUES (:id, :active)"
-    log_to_create = {"id": partner.id, "active": 1}
+    log_to_create = {"id": int(partner.id), "active": 1}
     try:
         return await database.execute(query=insert_query, values=log_to_create)
     except Exception as _:

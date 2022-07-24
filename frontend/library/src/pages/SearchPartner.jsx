@@ -1,8 +1,11 @@
 import React,  { useState } from "react";
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
-function StatusClient() {
+function SearchPartnerLogs() {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -15,19 +18,19 @@ function StatusClient() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: inputs.id, active: (inputs.active === "true") ? true : false })
+        body: JSON.stringify({ id: inputs.id })
     };
-    fetch('http://127.0.0.1:8000/client_status', requestOptions)
+    fetch('http://127.0.0.1:8000/partner_logs', requestOptions)
         .then(response => response.json())
-        .then((json) => alert("Request Completed"))
+        .then((json) => navigate('/partner_logs', {state: json}))
   }
 
   return (
-  <div className = "StatusClient">
-     <h1> Change the status of a client on the library </h1>
-     <form onSubmit={handleSubmit}>
+  <div className = "SearchPartnerLogs">
+     <h1> Search partner logs in the library </h1>
+         <form onSubmit={handleSubmit}>
       <li>
-      <label>Enter the ID of the client:
+      <label>Enter the ID of the partner:
       <input
         type="text"
         name="id"
@@ -35,22 +38,12 @@ function StatusClient() {
         onChange={handleChange}
       />
       </label>
-      </li>
-      <li>
-      <label>Enter the active status of the client (true/false):
-      <input
-        type="text"
-        name="active"
-        value={inputs.active}
-        onChange={handleChange}
-      />
-      </label>
     </li>
-      <input type="submit" />
+    <input type="submit" />
     </form>
     </div>
 
   )
 }
 
-export default StatusClient;
+export default SearchPartnerLogs;

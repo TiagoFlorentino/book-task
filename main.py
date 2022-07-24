@@ -138,6 +138,15 @@ async def list_partner_logs():
     return await database.fetch_all(query="SELECT * FROM partner_log")
 
 
+@app.post("/partner_logs")
+async def partner_logs(info: Request):
+    request_info = await info.json()
+    return await database.fetch_all(
+        query="SELECT * FROM partner_log WHERE partner_id = :id",
+        values={"id": int(request_info.get("id"))},
+    )
+
+
 # CAMPAIGN OPERATIONS!
 @app.get("/list_campaigns")
 async def list_campaigns():

@@ -1,7 +1,7 @@
 import React,  { useState } from "react";
 import '../App.css';
 
-function StatusClient() {
+function StatusPartner() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -17,17 +17,17 @@ function StatusClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: inputs.id, active: (inputs.active === "true") ? true : false })
     };
-    fetch('http://127.0.0.1:8000/client_status', requestOptions)
+    fetch('http://127.0.0.1:8000/partner_status', requestOptions)
         .then(response => response.json())
         .then((json) => alert("Request Completed"))
   }
 
   return (
-  <div className = "StatusClient">
-     <h1> Change the status of a client on the library </h1>
+  <div className = "StatusPartner">
+     <h1> Change the status of a partner on the library </h1>
      <form onSubmit={handleSubmit}>
       <li>
-      <label>Enter the ID of the client:
+      <label>Enter the ID of the partner:
       <input
         type="text"
         name="id"
@@ -37,7 +37,7 @@ function StatusClient() {
       </label>
       </li>
       <li>
-      <label>Enter the active status of the client (true/false):
+      <label>Enter the active status of the partner (true/false):
       <input
         type="text"
         name="active"
@@ -53,4 +53,4 @@ function StatusClient() {
   )
 }
 
-export default StatusClient;
+export default StatusPartner;
