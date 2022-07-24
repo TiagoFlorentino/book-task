@@ -1,7 +1,7 @@
 import React,  { useState } from "react";
 import '../App.css';
 
-function AddBook() {
+function AddPartner() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -15,30 +15,38 @@ function AddBook() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: inputs.title })
+        body: JSON.stringify({ name: inputs.name, email: inputs.email })
     };
-    fetch('http://127.0.0.1:8000/add_book', requestOptions)
+    fetch('http://127.0.0.1:8000/add_partner', requestOptions)
         .then(response => response.json())
         .then((json) => alert("Request Completed"))
   }
 
   return (
-  <div className = "AddBook">
-     <h1> Add a new book to the library </h1>
-         <form onSubmit={handleSubmit}>
-      <label>Enter the title of the book:
+  <div className = "AddClient">
+     <h1> Add a new partner to the library </h1>
+     <form onSubmit={handleSubmit}>
+      <label>Enter the name of the partner:
       <input
         type="text"
-        name="title"
-        value={inputs.title}
+        name="name"
+        value={inputs.name}
         onChange={handleChange}
       />
       </label>
-        <input type="submit" />
+      <label>Enter the email of the partner:
+      <input
+        type="text"
+        name="email"
+        value={inputs.email}
+        onChange={handleChange}
+      />
+      </label>
+      <input type="submit" />
     </form>
     </div>
 
   )
 }
 
-export default AddBook;
+export default AddPartner;
