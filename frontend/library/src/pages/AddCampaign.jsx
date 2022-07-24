@@ -27,7 +27,7 @@ function AddCampaign() {
      <h1> Add a new campaign to the library </h1>
          <form onSubmit={handleSubmit}>
          <li>
-      <label>Enter the name of the book:
+      <label>Enter the name of the campaign:
       <input
         type="text"
         name="name"

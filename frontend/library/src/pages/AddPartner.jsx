@@ -26,6 +26,7 @@ function AddPartner() {
   <div className = "AddClient">
      <h1> Add a new partner to the library </h1>
      <form onSubmit={handleSubmit}>
+      <li>
       <label>Enter the name of the partner:
       <input
         type="text"
@@ -34,6 +35,8 @@ function AddPartner() {
         onChange={handleChange}
       />
       </label>
+      </li>
+      <li>
       <label>Enter the email of the partner:
       <input
         type="text"
@@ -42,6 +45,7 @@ function AddPartner() {
         onChange={handleChange}
       />
       </label>
+    </li>
       <input type="submit" />
     </form>
     </div>

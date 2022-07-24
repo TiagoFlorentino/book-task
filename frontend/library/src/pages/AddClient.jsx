@@ -26,6 +26,7 @@ function AddClient() {
   <div className = "AddClient">
      <h1> Add a new client to the library </h1>
          <form onSubmit={handleSubmit}>
+       <li>
       <label>Enter the name of the client:
       <input
         type="text"
@@ -34,6 +35,7 @@ function AddClient() {
         onChange={handleChange}
       />
       </label>
+        </li>
         <input type="submit" />
     </form>
     </div>

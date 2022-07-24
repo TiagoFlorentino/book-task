@@ -26,6 +26,7 @@ function AddBook() {
   <div className = "AddBook">
      <h1> Add a new book to the library </h1>
          <form onSubmit={handleSubmit}>
+      <li>
       <label>Enter the title of the book:
       <input
         type="text"
@@ -34,7 +35,8 @@ function AddBook() {
         onChange={handleChange}
       />
       </label>
-        <input type="submit" />
+    </li>
+    <input type="submit" />
     </form>
     </div>
 
