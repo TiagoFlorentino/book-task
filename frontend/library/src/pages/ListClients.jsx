@@ -31,6 +31,7 @@ class ListClients extends React.Component {
             <h1> Listing all clients </h1>  {
                 items.map((item) => (
                 <ol key = { item.id } >
+                    CLIENT_ID: { item.id },
                     CLIENT_STATUS: { item.name },
                     CLIENT_CREATE: { item.created },
                     CLIENT_ACTIVE_STATUS: { ((item.active == 1) ? 'Active' : 'Not Active')}

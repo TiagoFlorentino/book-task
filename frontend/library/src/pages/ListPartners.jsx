@@ -31,9 +31,10 @@ class ListPartners extends React.Component {
             <h1> Listing all Partners </h1>  {
                 items.map((item) => (
                 <ol key = { item.id } >
+                    PARTNER_ID: { item.id },
                     PARTNER_NAME: { item.name },
                     PARTNER_EMAIL: { item.email },
-                    Status: { ((item.active == 1) ? 'Active' : 'Not Active')},
+                    Status: { ((item.active === 1) ? 'Active' : 'Not Active')},
                     LAST_STATUS_UPDATE: { item.last_update },
                     </ol>
                 ))

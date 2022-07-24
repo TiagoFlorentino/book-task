@@ -31,6 +31,7 @@ class ListCampaigns extends React.Component {
             <h1> Listing all Campaigns </h1>  {
                 items.map((item) => (
                 <ol key = { item.id } >
+                    CAMPAIGN_ID: { item.id },
                     CAMPAIGN_NAME: { item.name },
                     CAMPAIGN_SLOGAN: { item.slogan },
                     PARTNER_ID: { item.id }

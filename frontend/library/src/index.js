@@ -8,6 +8,8 @@ import AddBook from "./pages/AddBook";
 import AddClient from "./pages/AddClient";
 import AddPartner from "./pages/AddPartner";
 import AddCampaign from "./pages/AddCampaign";
+import RentBook from "./pages/RentBook";
+import StatusClient from "./pages/StatusClient";
 
 export default function App() {
   return (
@@ -16,9 +18,11 @@ export default function App() {
         <Route path="/">
             <Route path="list_books" element={<ListBooks />} />
             <Route path="add_book" element={<AddBook />} />
+            <Route path="rent_book" element={<RentBook />} />
 
             <Route path="list_clients" element={<ListClients />}/>
             <Route path="add_client" element={<AddClient />} />
+            <Route path="status_client" element={<StatusClient />} />
 
             <Route path="list_campaigns" element={<ListCampaigns />}/>
             <Route path="add_campaign" element={<AddCampaign />} />
