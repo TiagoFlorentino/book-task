@@ -2,6 +2,7 @@ from databases import Database
 from fastapi import FastAPI
 import os
 
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from book_task.routes.book import (
@@ -15,6 +16,16 @@ from book_task.routes.client import client_search, change_client_status, create_
 from book_task.routes.partners import add_new_partner, change_partner_status
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 current_env = os.environ.get("CURRENT_ENV", "")
@@ -95,6 +106,15 @@ async def list_renting_logs():
     return await database.fetch_all(query="SELECT * FROM renting_log")
 
 
+@app.post("/book_renting_logs")
+async def book_renting_logs(info: Request):
+    request_info = await info.json()
+    return await database.fetch_all(
+        query="SELECT * FROM renting_log WHERE book_id = :book_id",
+        values={"book_id": request_info.get("book_id")},
+    )
+
+
 # PARTNER OPERATIONS!
 @app.get("/list_partners")
 async def list_partner_logs():
@@ -116,6 +136,15 @@ async def partner_status(info: Request):
 @app.get("/list_partner_logs")
 async def list_partner_logs():
     return await database.fetch_all(query="SELECT * FROM partner_log")
+
+
+@app.post("/partner_logs")
+async def partner_logs(info: Request):
+    request_info = await info.json()
+    return await database.fetch_all(
+        query="SELECT * FROM partner_log WHERE partner_id = :id",
+        values={"id": int(request_info.get("id"))},
+    )
 
 
 # CAMPAIGN OPERATIONS!
@@ -140,3 +169,12 @@ async def join_campaign(info: Request):
 @app.get("/list_campaign_logs")
 async def list_campaign_logs():
     return await database.fetch_all(query="SELECT * FROM campaign_log")
+
+
+@app.post("/campaign_logs")
+async def campaign_logs(info: Request):
+    request_info = await info.json()
+    return await database.fetch_all(
+        query="SELECT * FROM campaign_log WHERE campaign_id = :id",
+        values={"id": int(request_info.get("id"))},
+    )
