@@ -2,6 +2,7 @@ from databases import Database
 from fastapi import FastAPI
 import os
 
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from book_task.routes.book import (
@@ -15,6 +16,16 @@ from book_task.routes.client import client_search, change_client_status, create_
 from book_task.routes.partners import add_new_partner, change_partner_status
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 current_env = os.environ.get("CURRENT_ENV", "")

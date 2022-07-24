@@ -48,3 +48,11 @@ and their status
 - Run testing
 
 ```poetry run pytest```
+
+- Run React APP
+
+```cd frontend\library```
+
+```npm start```
+
+
