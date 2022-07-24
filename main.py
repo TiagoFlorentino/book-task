@@ -109,7 +109,10 @@ async def list_renting_logs():
 @app.post("/book_renting_logs")
 async def book_renting_logs(info: Request):
     request_info = await info.json()
-    return await database.fetch_all(query="SELECT * FROM renting_log WHERE book_id = :book_id", values={"book_id": request_info.get("book_id")})
+    return await database.fetch_all(
+        query="SELECT * FROM renting_log WHERE book_id = :book_id",
+        values={"book_id": request_info.get("book_id")},
+    )
 
 
 # PARTNER OPERATIONS!
@@ -157,3 +160,12 @@ async def join_campaign(info: Request):
 @app.get("/list_campaign_logs")
 async def list_campaign_logs():
     return await database.fetch_all(query="SELECT * FROM campaign_log")
+
+
+@app.post("/campaign_logs")
+async def campaign_logs(info: Request):
+    request_info = await info.json()
+    return await database.fetch_all(
+        query="SELECT * FROM campaign_log WHERE campaign_id = :id",
+        values={"id": int(request_info.get("id"))},
+    )

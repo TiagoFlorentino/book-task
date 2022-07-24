@@ -13,6 +13,8 @@ import StatusClient from "./pages/StatusClient";
 import StatusBook from "./pages/StatusBook";
 import SearchBookLogs from "./pages/SearchBook";
 import ListRentingLogs from "./pages/ListRentingLogs";
+import ListCampaignLogs from "./pages/ListCampaignLogs";
+import SearchCampaign from "./pages/SearchCampaign";
 
 export default function App() {
   return (
@@ -32,6 +34,8 @@ export default function App() {
 
             <Route path="list_campaigns" element={<ListCampaigns />}/>
             <Route path="add_campaign" element={<AddCampaign />} />
+            <Route path="search_campaign" element={<SearchCampaign />} />
+            <Route path="campaign_logs" element={<ListCampaignLogs />} />
 
             <Route path="list_partners" element={<ListPartners />}/>
             <Route path="add_partner" element={<AddPartner />} />

@@ -2,7 +2,7 @@ import React,  { useState } from "react";
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
-function SearchBookLogs() {
+function SearchCampaign() {
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
 
@@ -18,23 +18,23 @@ function SearchBookLogs() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ book_id: inputs.book_id })
+        body: JSON.stringify({ id: inputs.id })
     };
-    fetch('http://127.0.0.1:8000/book_renting_logs', requestOptions)
+    fetch('http://127.0.0.1:8000/campaign_logs', requestOptions)
         .then(response => response.json())
-        .then((json) => navigate('/renting_logs', {state: json}))
+        .then((json) => navigate('/campaign_logs', {state: json}))
   }
 
   return (
-  <div className = "SearchBookLogs">
-     <h1> Search book logs in the library </h1>
+  <div className = "SearchCampaign">
+     <h1> Search campaign logs in the library </h1>
          <form onSubmit={handleSubmit}>
       <li>
-      <label>Enter the ID of the book:
+      <label>Enter the ID of the campaign:
       <input
-        type="text"
-        name="book_id"
-        value={inputs.book_id}
+        type="number"
+        name="id"
+        value={inputs.id}
         onChange={handleChange}
       />
       </label>
@@ -46,4 +46,4 @@ function SearchBookLogs() {
   )
 }
 
-export default SearchBookLogs;
+export default SearchCampaign;
