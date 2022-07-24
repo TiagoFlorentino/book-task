@@ -23,7 +23,7 @@ function AddCampaign() {
   }
 
   return (
-  <div className = "AddBook">
+  <div className = "AddCampaign">
      <h1> Add a new campaign to the library </h1>
          <form onSubmit={handleSubmit}>
          <li>

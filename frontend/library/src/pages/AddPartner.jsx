@@ -23,7 +23,7 @@ function AddPartner() {
   }
 
   return (
-  <div className = "AddClient">
+  <div className = "AddPartner">
      <h1> Add a new partner to the library </h1>
      <form onSubmit={handleSubmit}>
       <li>

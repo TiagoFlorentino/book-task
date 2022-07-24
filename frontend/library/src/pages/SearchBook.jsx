@@ -1,8 +1,11 @@
 import React,  { useState } from "react";
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
-function RentBook() {
+function SearchBookLogs() {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -15,27 +18,17 @@ function RentBook() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ book_id: inputs.book_id, client_id: inputs.client_id })
+        body: JSON.stringify({ book_id: inputs.book_id })
     };
-    fetch('http://127.0.0.1:8000/rent_book', requestOptions)
+    fetch('http://127.0.0.1:8000/book_renting_logs', requestOptions)
         .then(response => response.json())
-        .then((json) => alert("Request Completed"))
+        .then((json) => navigate('/renting_logs', {state: json}))
   }
 
   return (
   <div className = "RentBook">
-     <h1> Rent a book in the library </h1>
+     <h1> Search book logs in the library </h1>
          <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the client:
-      <input
-        type="text"
-        name="client_id"
-        value={inputs.client_id}
-        onChange={handleChange}
-      />
-      </label>
-    </li>
       <li>
       <label>Enter the ID of the book:
       <input
@@ -53,4 +46,4 @@ function RentBook() {
   )
 }
 
-export default RentBook;
+export default SearchBookLogs;

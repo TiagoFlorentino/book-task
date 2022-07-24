@@ -1,7 +1,7 @@
 import React,  { useState } from "react";
 import '../App.css';
 
-function StatusClient() {
+function StatusBook() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -15,19 +15,19 @@ function StatusClient() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: inputs.id, active: (inputs.active === "true") ? true : false })
+        body: JSON.stringify({ id: inputs.id, status: inputs.status })
     };
-    fetch('http://127.0.0.1:8000/client_status', requestOptions)
+    fetch('http://127.0.0.1:8000/book_status', requestOptions)
         .then(response => response.json())
         .then((json) => alert("Request Completed"))
   }
 
   return (
-  <div className = "StatusClient">
-     <h1> Add a new partner to the library </h1>
+  <div className = "StatusBook">
+     <h1>  Changes status of a book in the library </h1>
      <form onSubmit={handleSubmit}>
       <li>
-      <label>Enter the ID of the client:
+      <label>Enter the ID of the book:
       <input
         type="text"
         name="id"
@@ -37,11 +37,11 @@ function StatusClient() {
       </label>
       </li>
       <li>
-      <label>Enter the active status of the client (true/false):
+      <label>Enter the active status of the book (AVAILABLE or DISCONTINUED):
       <input
         type="text"
-        name="active"
-        value={inputs.active}
+        name="status"
+        value={inputs.status}
         onChange={handleChange}
       />
       </label>
@@ -53,4 +53,4 @@ function StatusClient() {
   )
 }
 
-export default StatusClient;
+export default StatusBook;

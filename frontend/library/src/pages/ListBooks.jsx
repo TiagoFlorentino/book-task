@@ -34,6 +34,7 @@ class ListBooks extends React.Component {
                     BOOK_ID: { item.id },
                     BOOK_TITLE: { item.title },
                     BOOK_STATUS: { item.status }
+                    LAST_RENTER_ID: { item.renter_id }
                     </ol>
                 ))
             }
