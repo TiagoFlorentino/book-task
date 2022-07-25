@@ -19,7 +19,7 @@ function StatusPartner() {
     };
     fetch('http://127.0.0.1:8000/partner_status', requestOptions)
         .then(response => response.json())
-        .then((json) => alert("Request Completed"))
+        .then((json) => alert(json))
   }
 
   return (
@@ -34,13 +34,11 @@ function StatusPartner() {
         value={inputs.id}
         onChange={handleChange}
       />
-      <p>Enter the active status of the partner (true/false):</p>
-      <input
-        type="text"
-        name="active"
-        value={inputs.active}
-        onChange={handleChange}
-      />
+      <p>Enter the active status of the partner:</p>
+      <select name="active" onChange={handleChange}>
+           <option value="true">true</option>
+           <option value="false">false</option>
+      </select>
     </fieldset>
       <input type="submit" />
     </form>

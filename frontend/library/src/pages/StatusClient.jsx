@@ -34,13 +34,11 @@ function StatusClient() {
         value={inputs.id}
         onChange={handleChange}
       />
-      <p>Enter the active status of the client (true/false):</p>
-      <input
-        type="text"
-        name="active"
-        value={inputs.active}
-        onChange={handleChange}
-      />
+      <p>Enter the active status of the client:</p>
+        <select name="active" onChange={handleChange}>
+           <option value="true">true</option>
+           <option value="false">false</option>
+      </select>
     </fieldset>
       <input type="submit" />
     </form>

@@ -34,13 +34,11 @@ function StatusBook() {
         value={inputs.id}
         onChange={handleChange}
       />
-      <p>Enter the active status of the book (AVAILABLE or DISCONTINUED):</p>
-      <input
-        type="text"
-        name="status"
-        value={inputs.status}
-        onChange={handleChange}
-      />
+      <p>Enter the active status of the book:</p>
+      <select name="status" onChange={handleChange}>
+           <option value="AVAILABLE">AVAILABLE</option>
+           <option value="DISCONTINUED">DISCONTINUED</option>
+       </select>
        </fieldset>
       <input type="submit" />
     </form>

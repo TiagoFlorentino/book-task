@@ -35,7 +35,7 @@ class ListPartners extends React.Component {
               <th>Partner Name</th>
               <th>Partner Email</th>
               <th>Current Status</th>
-              <th>Last Status Update</th>
+              <th>Created Date</th>
             </tr>
             {items.map((val, key) => {
               return (
@@ -44,7 +44,7 @@ class ListPartners extends React.Component {
                   <td>{val.name}</td>
                   <td>{val.email}</td>
                   <td>{((val.active === 1) ? 'Active' : 'Not Active')}</td>
-                  <td>{val.last_update}</td>
+                  <td>{val.created_date}</td>
                 </tr>
               )
             })}
