@@ -35,6 +35,21 @@ before allowing the renting process to move forward
 List endpoint will display all the books that were ever available on the library
 and their status
 
+### 6 - Joining a new campaign.
+
+The client can join a new campain at any time. New users will  be registered as new users
+by the campaign if they have registered in the last hour.
+
+### 7 - Tracking book logs
+
+The library keeps a list of all the users how rented a book.
+
+### 7 - Partners are the campaign's sponsor
+
+From time to time the library has active campaigns which are sponsored by a 
+partner. We can list the active period of each partner given their status change.
+
+
 # How to use
 
 - Generate your local DB
@@ -55,4 +70,38 @@ and their status
 
 ```npm start```
 
+# Front End Endpoints Help Guide
 
+## Add operations
+
+```add_client``` -> Add a new client
+
+```add_book``` -> Add a new book
+
+```add_partner``` -> Add a new partner
+
+```add_campaign``` -> Add a new campaign
+
+## List Operations
+
+```list_books``` -> List the books of the library
+
+```list_campaigns``` -> List the campaigns of the library
+
+```list_clients``` -> List the clients of the library
+
+```list_partners``` -> List the partners of the library
+
+## Search Operations
+
+```search_book``` -> List the renting operations done on a book
+
+```search_campaign``` -> List the users who joined a campaign
+
+```search_partner``` -> List the status changes of a partner
+
+## Action operations
+
+```rent_book``` -> Rent a book from the library
+
+```join_campaign``` -> A client can join a campaign
