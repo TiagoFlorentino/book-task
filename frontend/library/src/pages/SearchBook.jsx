@@ -28,17 +28,16 @@ function SearchBookLogs() {
   return (
   <div className = "SearchBookLogs">
      <h1> Search book logs in the library </h1>
-         <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the book:
+     <form onSubmit={handleSubmit}>
+      <fieldset>
+      <p>Enter the ID of the book:</p>
       <input
         type="text"
         name="book_id"
         value={inputs.book_id}
         onChange={handleChange}
       />
-      </label>
-    </li>
+    </fieldset>
     <input type="submit" />
     </form>
     </div>

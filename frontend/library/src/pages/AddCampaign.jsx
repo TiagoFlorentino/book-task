@@ -25,37 +25,30 @@ function AddCampaign() {
   return (
   <div className = "AddCampaign">
      <h1> Add a new campaign to the library </h1>
-         <form onSubmit={handleSubmit}>
-         <li>
-      <label>Enter the name of the campaign:
+     <form onSubmit={handleSubmit}>
+      <fieldset>
+      <p>Enter the name of the campaign:</p>
       <input
         type="text"
         name="name"
         value={inputs.name}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the slogan of the campaign:
+      <p>Enter the slogan of the campaign:</p>
       <input
         type="text"
         name="slogan"
         value={inputs.slogan}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the ID partner of the campaign:
+      <p>Enter the ID partner of the campaign:</p>
       <input
         type="number"
         name="partner_id"
         value={inputs.partner_id}
         onChange={handleChange}
       />
-      </label>
-      </li>
+       </fieldset>
      <input type="submit" />
     </form>
     </div>

@@ -5,15 +5,23 @@ function ListCampaignLogs() {
     const location = useLocation();
       return (
         <div className = "ListCampaignLogs">
-            <h1> List the campaign logs </h1>  {
-                    location.state.map((item) => (
-                    <ol key = { item.id } >
-                        CAMPAIGN_ID: { item.campaign_id },
-                        CLIENT_ID: { item.client_id },
-                        NEW_CLIENT: {  (item.new_client === 1) ? "True" : "False" },
-                        </ol>
-                    ))
-                }
+                <h1> List campaigns logs </h1>
+        <table>
+        <tr>
+          <th>Campaign ID</th>
+          <th>Client ID</th>
+          <th>New Client</th>
+        </tr>
+        {location.state.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.campaign_id}</td>
+              <td>{val.client_id}</td>
+              <td>{ (val.new_client === 1) ? "True" : "False"}</td>
+            </tr>
+          )
+            })}
+        </table>
         </div>
       );
     };

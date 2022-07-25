@@ -19,33 +19,27 @@ function StatusPartner() {
     };
     fetch('http://127.0.0.1:8000/partner_status', requestOptions)
         .then(response => response.json())
-        .then((json) => alert("Request Completed"))
+        .then((json) => alert(json))
   }
 
   return (
   <div className = "StatusPartner">
      <h1> Change the status of a partner on the library </h1>
      <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the partner:
+      <fieldset>
+      <p>Enter the ID of the partner:</p>
       <input
         type="text"
         name="id"
         value={inputs.id}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the active status of the partner (true/false):
-      <input
-        type="text"
-        name="active"
-        value={inputs.active}
-        onChange={handleChange}
-      />
-      </label>
-    </li>
+      <p>Enter the active status of the partner:</p>
+      <select name="active" onChange={handleChange}>
+           <option value="true">true</option>
+           <option value="false">false</option>
+      </select>
+    </fieldset>
       <input type="submit" />
     </form>
     </div>

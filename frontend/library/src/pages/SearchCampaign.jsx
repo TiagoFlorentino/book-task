@@ -28,17 +28,16 @@ function SearchCampaign() {
   return (
   <div className = "SearchCampaign">
      <h1> Search campaign logs in the library </h1>
-         <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the campaign:
+       <form onSubmit={handleSubmit}>
+      <fieldset>
+      <p>Enter the ID of the campaign:</p>
       <input
         type="number"
         name="id"
         value={inputs.id}
         onChange={handleChange}
       />
-      </label>
-    </li>
+    </fieldset>
     <input type="submit" />
     </form>
     </div>

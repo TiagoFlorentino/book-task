@@ -18,6 +18,7 @@ import SearchCampaign from "./pages/SearchCampaign";
 import SearchPartner from "./pages/SearchPartner";
 import StatusPartner from "./pages/StatusPartner";
 import ListPartnerLogs from "./pages/ListPartnerLogs";
+import JoinCampaign from "./pages/JoinCampaign";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="add_campaign" element={<AddCampaign />} />
             <Route path="search_campaign" element={<SearchCampaign />} />
             <Route path="campaign_logs" element={<ListCampaignLogs />} />
+            <Route path="join_campaign" element={<JoinCampaign />} />
 
             <Route path="list_partners" element={<ListPartners />}/>
             <Route path="add_partner" element={<AddPartner />} />

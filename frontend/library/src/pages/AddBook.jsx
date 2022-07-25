@@ -1,4 +1,5 @@
 import React,  { useState } from "react";
+
 import '../App.css';
 
 function AddBook() {
@@ -25,17 +26,16 @@ function AddBook() {
   return (
   <div className = "AddBook">
      <h1> Add a new book to the library </h1>
-         <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the title of the book:
+     <form onSubmit={handleSubmit}>
+    <fieldset>
+      <p>Enter the title of the book:</p>
       <input
         type="text"
         name="title"
         value={inputs.title}
         onChange={handleChange}
       />
-      </label>
-    </li>
+    </fieldset>
     <input type="submit" />
     </form>
     </div>

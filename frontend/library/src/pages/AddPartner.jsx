@@ -26,26 +26,22 @@ function AddPartner() {
   <div className = "AddPartner">
      <h1> Add a new partner to the library </h1>
      <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the name of the partner:
+     <fieldset>
+      <p>Enter the name of the partner:</p>
       <input
         type="text"
         name="name"
         value={inputs.name}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the email of the partner:
+      <p>Enter the email of the partner:</p>
       <input
         type="text"
         name="email"
         value={inputs.email}
         onChange={handleChange}
       />
-      </label>
-    </li>
+      </fieldset>
       <input type="submit" />
     </form>
     </div>

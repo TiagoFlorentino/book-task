@@ -63,14 +63,14 @@ async def join_new_campaign(request_info: dict, database: Database):
     created_date = datetime.strptime(client.created, "%Y-%m-%d %H:%M:%f")
     less_than_hour = created_date < datetime.today() - timedelta(hours=1)
     new_client = 1 if less_than_hour else 0
-    insert_query = "INSERT INTO campaign_log (new_client, client_id, campaign_id) VALUES (:new_client, :client_id, :campaign_id)"
-    log_to_create = {
-        "new_client": new_client,
-        "client_id": client_id,
-        "campaign_id": campaign_id,
+    new_campaign_log = "INSERT INTO campaign_log (new_client, client_id, campaign_id) VALUES (:new_client, :client_id, :campaign_id)"
+    log_arguments = {
+        "new_client": int(new_client),
+        "client_id": int(client_id),
+        "campaign_id": int(campaign_id),
     }
     try:
-        return await database.execute(query=insert_query, values=log_to_create)
+        return await database.execute(query=new_campaign_log, values=log_arguments)
     except Exception as _:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

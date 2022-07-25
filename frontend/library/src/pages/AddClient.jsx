@@ -25,18 +25,17 @@ function AddClient() {
   return (
   <div className = "AddClient">
      <h1> Add a new client to the library </h1>
-         <form onSubmit={handleSubmit}>
-       <li>
-      <label>Enter the name of the client:
+        <form onSubmit={handleSubmit}>
+       <fieldset>
+      <p>Enter the name of the client:</p>
       <input
         type="text"
         name="name"
         value={inputs.name}
         onChange={handleChange}
       />
-      </label>
-        </li>
-        <input type="submit" />
+    </fieldset>
+    <input type="submit" />
     </form>
     </div>
 

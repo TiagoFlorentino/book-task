@@ -28,16 +28,25 @@ class ListClients extends React.Component {
 
         return (
         <div className = "ListClients">
-            <h1> Listing all clients </h1>  {
-                items.map((item) => (
-                <ol key = { item.id } >
-                    CLIENT_ID: { item.id },
-                    CLIENT_STATUS: { item.name },
-                    CLIENT_CREATE: { item.created },
-                    CLIENT_ACTIVE_STATUS: { ((item.active == 1) ? 'Active' : 'Not Active')}
-                    </ol>
-                ))
-            }
+        <h1> List clients of the library </h1>
+        <table>
+        <tr>
+          <th>Client ID</th>
+          <th>Client Status</th>
+          <th>Created Date</th>
+          <th>Status</th>
+        </tr>
+        {items.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.id}</td>
+              <td>{val.name}</td>
+              <td>{val.created}</td>
+              <td>{((val.active === 1) ? 'Active' : 'Not Active')}</td>
+            </tr>
+          )
+            })}
+        </table>
         </div>
     );
 }

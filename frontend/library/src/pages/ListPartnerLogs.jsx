@@ -5,15 +5,23 @@ function ListPartnerLogs() {
     const location = useLocation();
       return (
         <div className = "ListPartnerLogs">
-            <h1> List the partner logs </h1>  {
-                    location.state.map((item) => (
-                    <ol key = { item.id } >
-                        PARTNER_ID: { item.partner_id },
-                        UPDATE_DATE: { item.update_date },
-                        ACTIVE: {  (item.active === 1) ? "True" : "False" },
-                        </ol>
-                    ))
-                }
+        <h1> List the partner logs </h1>
+        <table>
+        <tr>
+          <th>Partner ID</th>
+          <th>Update date</th>
+          <th>Active</th>
+        </tr>
+        {location.state.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.partner_id}</td>
+              <td>{val.update_date}</td>
+              <td>{(val.active === 1) ? "True" : "False"}</td>
+            </tr>
+          )
+        })}
+      </table>
         </div>
       );
     };

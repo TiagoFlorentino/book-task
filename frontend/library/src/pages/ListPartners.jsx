@@ -28,17 +28,27 @@ class ListPartners extends React.Component {
 
         return (
         <div className = "ListPartners">
-            <h1> Listing all Partners </h1>  {
-                items.map((item) => (
-                <ol key = { item.id } >
-                    PARTNER_ID: { item.id },
-                    PARTNER_NAME: { item.name },
-                    PARTNER_EMAIL: { item.email },
-                    Status: { ((item.active === 1) ? 'Active' : 'Not Active')},
-                    LAST_STATUS_UPDATE: { item.last_update },
-                    </ol>
-                ))
-            }
+        <h1> Partner List </h1>
+        <table>
+           <tr>
+              <th>Partner ID</th>
+              <th>Partner Name</th>
+              <th>Partner Email</th>
+              <th>Current Status</th>
+              <th>Created Date</th>
+            </tr>
+            {items.map((val, key) => {
+              return (
+                <tr key={key}>
+                  <td>{val.id}</td>
+                  <td>{val.name}</td>
+                  <td>{val.email}</td>
+                  <td>{((val.active === 1) ? 'Active' : 'Not Active')}</td>
+                  <td>{val.created_date}</td>
+                </tr>
+              )
+            })}
+          </table>
         </div>
     );
 }

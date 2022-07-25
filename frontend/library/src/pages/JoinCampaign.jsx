@@ -1,7 +1,8 @@
 import React,  { useState } from "react";
+
 import '../App.css';
 
-function StatusClient() {
+function JoinCampaign() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -15,36 +16,38 @@ function StatusClient() {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: inputs.id, active: (inputs.active === "true") ? true : false })
+        body: JSON.stringify({ campaign_id: inputs.campaign_id, client_id:inputs.client_id })
     };
-    fetch('http://127.0.0.1:8000/client_status', requestOptions)
+    fetch('http://127.0.0.1:8000/join_campaign', requestOptions)
         .then(response => response.json())
         .then((json) => alert("Request Completed"))
   }
 
   return (
-  <div className = "StatusClient">
-     <h1> Change the status of a client on the library </h1>
+  <div className = "JoinCampaign">
+     <h1> Join a campaign! </h1>
      <form onSubmit={handleSubmit}>
      <fieldset>
-      <p>Enter the ID of the client:</p>
+      <p>Enter the client ID:</p>
       <input
-        type="text"
-        name="id"
-        value={inputs.id}
+        type="number"
+        name="client_id"
+        value={inputs.client_id}
         onChange={handleChange}
       />
-      <p>Enter the active status of the client:</p>
-        <select name="active" onChange={handleChange}>
-           <option value="true">true</option>
-           <option value="false">false</option>
-      </select>
-    </fieldset>
-      <input type="submit" />
+      <p>Enter the campaign ID:</p>
+      <input
+        type="number"
+        name="campaign_id"
+        value={inputs.campaign_id}
+        onChange={handleChange}
+      />
+      </fieldset>
+    <input type="submit" />
     </form>
     </div>
 
   )
 }
 
-export default StatusClient;
+export default JoinCampaign;

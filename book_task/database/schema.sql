@@ -46,7 +46,7 @@ CREATE TABLE partners (
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     active INTEGER,
-    last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE partner_log (
