@@ -26,26 +26,22 @@ function StatusClient() {
   <div className = "StatusClient">
      <h1> Change the status of a client on the library </h1>
      <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the client:
+     <fieldset>
+      <p>Enter the ID of the client:</p>
       <input
         type="text"
         name="id"
         value={inputs.id}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the active status of the client (true/false):
+      <p>Enter the active status of the client (true/false):</p>
       <input
         type="text"
         name="active"
         value={inputs.active}
         onChange={handleChange}
       />
-      </label>
-    </li>
+    </fieldset>
       <input type="submit" />
     </form>
     </div>

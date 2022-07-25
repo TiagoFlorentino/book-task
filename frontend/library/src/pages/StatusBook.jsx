@@ -26,26 +26,22 @@ function StatusBook() {
   <div className = "StatusBook">
      <h1>  Changes status of a book in the library </h1>
      <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the book:
+      <fieldset>
+      <p>Enter the ID of the book:</p>
       <input
         type="text"
         name="id"
         value={inputs.id}
         onChange={handleChange}
       />
-      </label>
-      </li>
-      <li>
-      <label>Enter the active status of the book (AVAILABLE or DISCONTINUED):
+      <p>Enter the active status of the book (AVAILABLE or DISCONTINUED):</p>
       <input
         type="text"
         name="status"
         value={inputs.status}
         onChange={handleChange}
       />
-      </label>
-    </li>
+       </fieldset>
       <input type="submit" />
     </form>
     </div>

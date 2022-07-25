@@ -28,17 +28,16 @@ function SearchPartnerLogs() {
   return (
   <div className = "SearchPartnerLogs">
      <h1> Search partner logs in the library </h1>
-         <form onSubmit={handleSubmit}>
-      <li>
-      <label>Enter the ID of the partner:
+     <form onSubmit={handleSubmit}>
+     <fieldset>
+      <p>Enter the ID of the partner:</p>
       <input
         type="text"
         name="id"
         value={inputs.id}
         onChange={handleChange}
       />
-      </label>
-    </li>
+    </fieldset>
     <input type="submit" />
     </form>
     </div>
