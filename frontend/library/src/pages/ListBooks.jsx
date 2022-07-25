@@ -28,16 +28,25 @@ class ListBooks extends React.Component {
 
         return (
         <div className = "ListBooks">
-            <h1> Listing all books </h1>  {
-                items.map((item) => (
-                <ol key = { item.id } >
-                    BOOK_ID: { item.id },
-                    BOOK_TITLE: { item.title },
-                    BOOK_STATUS: { item.status }
-                    LAST_RENTER_ID: { item.renter_id }
-                    </ol>
-                ))
-            }
+        <h1> Listing all books in the library </h1>
+        <table>
+        <tr>
+          <th>Book ID</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Current renter ID</th>
+        </tr>
+        {items.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.id}</td>
+              <td>{val.title}</td>
+              <td>{val.status}</td>
+              <td>{val.renter_id}</td>
+            </tr>
+          )
+            })}
+        </table>
         </div>
     );
 }

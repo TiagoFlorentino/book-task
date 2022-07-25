@@ -28,16 +28,25 @@ class ListCampaigns extends React.Component {
 
         return (
         <div className = "ListCampaigns">
-            <h1> Listing all Campaigns </h1>  {
-                items.map((item) => (
-                <ol key = { item.id } >
-                    CAMPAIGN_ID: { item.id },
-                    CAMPAIGN_NAME: { item.name },
-                    CAMPAIGN_SLOGAN: { item.slogan },
-                    PARTNER_ID: { item.id }
-                    </ol>
-                ))
-            }
+        <h1> List campaigns of the library </h1>
+        <table>
+        <tr>
+          <th>Campaign ID</th>
+          <th>Campaign Name</th>
+          <th>Campaign Slogan</th>
+          <th>Partner ID</th>
+        </tr>
+        {items.map((val, key) => {
+          return (
+            <tr key={key}>
+              <td>{val.id}</td>
+              <td>{val.name}</td>
+              <td>{val.slogan}</td>
+              <td>{val.partner_id}</td>
+            </tr>
+          )
+            })}
+        </table>
         </div>
     );
 }
