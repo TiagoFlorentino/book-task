@@ -37,6 +37,9 @@ const Navbar = () => {
           <NavLink to='/rent_book' activeStyle>
             Rent Book
           </NavLink>
+          <NavLink to='/join_campaign' activeStyle>
+            Join Campaign
+          </NavLink>
          <NavLink to='/search_book' activeStyle>
             Search Book
           </NavLink>
