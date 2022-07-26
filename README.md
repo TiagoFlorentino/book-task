@@ -50,7 +50,7 @@ From time to time the library has active campaigns which are sponsored by a
 partner. We can list the active period of each partner given their status change.
 
 
-# How to use
+# How to start the project
 
 - Generate your local DB
 
@@ -60,15 +60,17 @@ partner. We can list the active period of each partner given their status change
 
 ```poetry run uvicorn main:app --reload```
 
-- Run testing
-
-```poetry run pytest```
-
-- Run React APP
+- Run React APP on a separate terminal
 
 ```cd frontend\library```
 
 ```npm start```
+
+
+# How to run testing
+
+```poetry run pytest```
+
 
 # Front End Endpoints Help Guide
 
