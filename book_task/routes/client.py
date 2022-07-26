@@ -29,7 +29,7 @@ async def client_search(request_info: dict, database: Database):
 
 async def change_client_status(request_info: dict, database: Database):
     """
-    Change client status - Active is a bool but stored as an int with the DB
+    Change client status - Active is a bool but stored as an int in the DB
     """
     id: Optional[int] = request_info.get("id", None)
     client_status: Optional[int] = request_info.get("active", None)
@@ -49,7 +49,7 @@ async def change_client_status(request_info: dict, database: Database):
 
 async def create_client(request_info: dict, database: Database):
     """
-    Create a new client to the library
+    Create a new client
     """
     name: Optional[str] = request_info.get("name", None)
     if name is None:
