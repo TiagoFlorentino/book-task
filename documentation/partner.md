@@ -14,7 +14,7 @@ Description: Add a new partner to the library
 ```json
 {
   "name": "Mahna Mahna",
-  "slogan": "mahna_mahna@abc.com",
+  "slogan": "mahna_mahna@xyz.com",
 }
 ```
 

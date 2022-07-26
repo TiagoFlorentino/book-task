@@ -1,5 +1,7 @@
+import './App.css';
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar"
 import ListBooks from "./pages/ListBooks";
 import ListClients from "./pages/ListClients";
 import ListCampaigns from "./pages/ListCampaigns";
@@ -19,11 +21,14 @@ import SearchPartner from "./pages/SearchPartner";
 import StatusPartner from "./pages/StatusPartner";
 import ListPartnerLogs from "./pages/ListPartnerLogs";
 import JoinCampaign from "./pages/JoinCampaign";
+import Index from "./pages/Index";
 
 export default function App() {
   return (
     <BrowserRouter>
+     <Navbar />
       <Routes>
+       <Route path="" element={<Index />} />
         <Route path="/">
             <Route path="list_books" element={<ListBooks />} />
             <Route path="add_book" element={<AddBook />} />

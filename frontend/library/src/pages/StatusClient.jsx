@@ -36,6 +36,7 @@ function StatusClient() {
       />
       <p>Enter the active status of the client:</p>
         <select name="active" onChange={handleChange}>
+           <option value="none" selected disabled hidden>Select an Option</option>
            <option value="true">true</option>
            <option value="false">false</option>
       </select>

@@ -36,6 +36,7 @@ function StatusBook() {
       />
       <p>Enter the active status of the book:</p>
       <select name="status" onChange={handleChange}>
+           <option value="none" selected disabled hidden>Select an Option</option>
            <option value="AVAILABLE">AVAILABLE</option>
            <option value="DISCONTINUED">DISCONTINUED</option>
        </select>

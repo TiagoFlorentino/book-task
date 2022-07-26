@@ -33,7 +33,7 @@ def database_startup(auto_populate: Optional[bool] = False):
         # Add new partners
         db_cursor.execute(
             "INSERT INTO partners (name, email, active) VALUES (?, ?, ?)",
-            ("Mahna Mahna", "mahna_mahna@abc.com", 1),
+            ("Mahna Mahna", "mahna_mahna@xyz.com", 1),
         )
         # Add partner logs
         db_cursor.execute(
@@ -66,5 +66,5 @@ def database_startup_for_testing():
     print("Closing DB Connection - Shutdown!")
 
 
-database_startup(auto_populate=True)
+database_startup(auto_populate=False)
 database_startup_for_testing()
